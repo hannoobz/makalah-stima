@@ -64,56 +64,56 @@ minutes, seconds = divmod(remainder, 60)
 print(f"{str(int(hours)).zfill(2)}:{str(int(minutes)).zfill(2)}:{str(int(seconds)).zfill(2)}")
 runtime = end_time - start_time
 print(f'The script ran for {runtime} seconds')
-cap.release()
+# cap.release()
 cv2.destroyAllWindows()
 
-# cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
-# lower_red1 = np.array([0, 120, 70])
-# upper_red1 = np.array([10, 255, 255])
-# lower_red2 = np.array([160, 120, 70])
-# upper_red2 = np.array([180, 255, 255])
-# mask1 = cv2.inRange(hsv, lower_red1, upper_red1)
-# mask2 = cv2.inRange(hsv, lower_red2, upper_red2)
-# mask = cv2.bitwise_or(mask1, mask2)
-# # return -low;
-# while True:
-#     ret, frame = cap.read()
-#     if not ret:
-#         break
+cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
+lower_red1 = np.array([0, 120, 70])
+upper_red1 = np.array([10, 255, 255])
+lower_red2 = np.array([160, 120, 70])
+upper_red2 = np.array([180, 255, 255])
+mask1 = cv2.inRange(hsv, lower_red1, upper_red1)
+mask2 = cv2.inRange(hsv, lower_red2, upper_red2)
+mask = cv2.bitwise_or(mask1, mask2)
+# return -low;
+while True:
+    ret, frame = cap.read()
+    if not ret:
+        break
 
-#     frame_number = cap.get(cv2.CAP_PROP_POS_FRAMES)
-#     print(f'Processing frame {frame_number}')
+    frame_number = cap.get(cv2.CAP_PROP_POS_FRAMES)
+    print(f'Processing frame {frame_number}')
 
-#     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-#     mask = cv2.bitwise_or(mask1, mask2)
+    mask = cv2.bitwise_or(mask1, mask2)
 
-#     contours, _ = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    contours, _ = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
-#     if contours:
-#         object_detected = True
-#         missing_frames = 0
-#     else:
-#         if object_detected:
-#             missing_frames += 1
+    if contours:
+        object_detected = True
+        missing_frames = 0
+    else:
+        if object_detected:
+            missing_frames += 1
 
-#         if missing_frames == 5:
-#             print('The red object is missing!')
-#             current_time_in_video = cap.get(cv2.CAP_PROP_POS_MSEC) / 1000  # convert to seconds
-#             print(f'The red object is missing! Current time in video: {current_time_in_video} seconds')
-#             object_detected = False
-#             break
+        if missing_frames == 5:
+            print('The red object is missing!')
+            current_time_in_video = cap.get(cv2.CAP_PROP_POS_MSEC) / 1000  # convert to seconds
+            print(f'The red object is missing! Current time in video: {current_time_in_video} seconds')
+            object_detected = False
+            break
 
-#     small_frame = cv2.resize(frame, (320, 320))
-#     cv2.imshow('Frame', small_frame)
+    small_frame = cv2.resize(frame, (320, 320))
+    cv2.imshow('Frame', small_frame)
 
-#     if cv2.waitKey(1) & 0xFF == ord('q'):
-#         break
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
 
-# end_time = time.time()
+end_time = time.time()
 
-# runtime = end_time - start_time
-# print(f'The script ran for {runtime} seconds')
+runtime = end_time - start_time
+print(f'The script ran for {runtime} seconds')
 
-# cap.release()
-# cv2.destroyAllWindows()
+cap.release()
+cv2.destroyAllWindows()
